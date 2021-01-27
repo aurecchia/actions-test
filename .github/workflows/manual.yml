@@ -1,0 +1,22 @@
+name: PROD Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+        GIT_REF:
+          description: A Git refefence
+          default: ""
+          required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.GIT_REF }}
+
+      - name: Echo
+        run: git rev-parse HEAD
